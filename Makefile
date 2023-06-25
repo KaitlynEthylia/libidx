@@ -26,3 +26,4 @@ $(BUILD)/%.o: $(SRC)/%.c
 
 clean:
 	rm -rf $(BUILD)
+
