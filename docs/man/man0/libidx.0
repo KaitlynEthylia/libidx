@@ -1,0 +1,112 @@
+.TH libidx.h 0 "June 2023" 1.0 LibIDX
+.SH NAME
+libidx.h \(em idx file format parsing
+
+.SH SYNOPSIS
+#include <libidx.h>
+
+.SH DESCRIPTION
+This library defines a series of functions for parsing the IDX file
+format for stroing multidimensional arrays.
+As the datatype and N-dimensionality are encoded in the file,
+it is possible, with some dark magic, to define functions that work
+on arrays of any dimensionality.
+
+.SS DEFINES
+
+.B IDX Magic Types \(em
+The type of data stored in the IDX, identified by the magic number at
+the start of the file
+.PP
+.RS
+.TS
+tab (@);
+l lx.
+IDX_MAGIC_BYTE_UNSIGNED@0x08
+IDX_MAGIC_BYTE_SIGNED@0x09
+IDX_MAGIC_SHORT@0x0B
+IDX_MAGIC_INT@0x0C
+IDX_MAGIC_FLOAT@0x0D
+IDX_MAGIC_DOUBLE@0x0E
+.TE
+.RE
+
+.B IDX Error Values \(em
+Possible error values that may be thrown by \fIparseIDX\fR()
+.PP
+.RS
+.TS
+tab (@);
+l lx.
+IDX_ERROR_NO_MAGIC@1
+IDX_ERROR_INCORRECT_MAGIC@2
+IDX_ERROR_UNKNOWN_DATATYPE@3
+IDX_ERROR_NOT_ENOUGH_DIMENSIONS@4
+IDX_ERROR_FILE_LENGTH_UNEXPECTED@5
+IDX_ERROR_NOT_ENOUGH_DATA@6
+.TE
+.RE
+
+.SS STRUCTS
+
+.B RAW_IDX \(em
+Struct containing the data from an IDX file
+.RS
+.TP
+.RI void* " data"
+The data contained within the idx file.
+Must be cast to the correct type before using.
+.B see \fIparseIDX\fR(3)
+
+.TP
+.RI int " datasize"
+The size, in bytes, of a single datapoint in the structue
+
+.TP
+.RI int " type"
+The datatype of the data in the struct.
+.B see \fIIDX Magic Types\fR
+
+.TP
+.RI int " dims"
+The number of dimensions in the struct,
+This tells you how many stars must go after the type when casting
+the \fIdata\fR field
+
+.TP
+.RI int* " sizes";
+An array of length \fIdims\fR containing the length of the data
+structure in each dimension
+.RE
+
+
+.SS FUNCTIONS
+.TP
+int dataSize(int \fItype\fR);
+.IP
+RETURN
+\fIsize\fR - The size in bytes
+
+.SH APPLICATION USAGE
+The IDX file format is the format used by the \fIMNIST\fR dataset.
+The format stores multidimensional arrays/matrices of varying types
+for usage in training and testing neural networks.
+
+.SH FUTURE DIRECTIONS
+In future this library may be expanded to contain more library
+funuctions for manipulating N-dimensional arrays,
+including common operations that one may one to perform on the arrays,
+particularly in the dontext of training/testing neural networks.
+
+.SH SEE ALSO
+<libidxdisplay.h>
+
+.IR parseIDX (),
+.IR freeIDX (),
+.IR display ()
+
+.SH BUGS
+None known.
+
+To report a bug please create an issue on \fIGitHub\fR or contact
+<kaitlyyn.ethylia@proton.me>

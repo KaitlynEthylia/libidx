@@ -1,4 +1,5 @@
 #include "libidx.h"
+#include <endian.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -110,4 +111,3 @@ int parseIDX(FILE* file, RAW_IDX* idx) {
 	idx->sizes = sizes;
 	return 0;
 }
-

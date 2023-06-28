@@ -1,0 +1,17 @@
+# must be specified in args, input and output directories, defaults are both '.'
+-D include
+-op docs
+
+# generate .d dependency files for Make and place them in the build directory
+-d build
+
+# variables, can be specified in the header file along with meta, or overridden wigh args
+# specified by prefixing the arg with a V
+-Vcontact <kaitlyyn.ethylia@\proton.me>
+
+# meta, prefixed with the letter M
+-Mlibrary LibIDX
+-Mversion 1.0
+-Mdate June 2023
+-Mlinks *
+-Mbugs "To report a but please create an issue on *Github* or contact @$contact"
